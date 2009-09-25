@@ -3,7 +3,7 @@
 
 Name:           python-%{oname}
 Version:        0.4.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        System V IPC for Python - Semaphores, Shared Memory and Message Queues
 Group:          Development/Libraries
 License:        GPLv3+
@@ -48,12 +48,15 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(-,root,root,-)
 %doc INSTALL LICENSE README ReadMe.html VERSION
 %{python_sitearch}/%{oname}.so
-%{python_sitearch}/%{oname}-%{version}-py2.6.egg-info
+%{python_sitearch}/%{oname}-%{version}-py2.[56].egg-info
 
 %files examples
 %defattr(-,root,root,-)
 %{_docdir}/%{name}-examples-%{version}/
 
 %changelog
+* Fri Sep 25 2009 Steven Fernandez <lonetwin@fedoraproject.org> - 0.4.2-2
+- Spec file fix. Use correct python version for egg-info file
+
 * Sat Aug 29 2009 Steven Fernandez <lonetwin@fedoraproject.org> - 0.4.2-1
-- First build
+- Initial build
