@@ -3,7 +3,7 @@
 
 Name:           python-%{oname}
 Version:        0.4.2
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        System V IPC for Python - Semaphores, Shared Memory and Message Queues
 Group:          Development/Libraries
 License:        GPLv3+
@@ -55,6 +55,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_docdir}/%{name}-examples-%{version}/
 
 %changelog
+* Wed Feb 09 2011 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.4.2-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_15_Mass_Rebuild
+
 * Mon Jul 26 2010 David Malcolm <dmalcolm@redhat.com> - 0.4.2-4
 - further generalize the egginfo manifest so it works with any python 2 minor
 version
