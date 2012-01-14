@@ -3,7 +3,7 @@
 
 Name:           python-%{oname}
 Version:        0.4.2
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        System V IPC for Python - Semaphores, Shared Memory and Message Queues
 Group:          Development/Libraries
 License:        GPLv3+
@@ -55,6 +55,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_docdir}/%{name}-examples-%{version}/
 
 %changelog
+* Sat Jan 14 2012 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.4.2-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_17_Mass_Rebuild
+
 * Wed Feb 09 2011 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.4.2-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_15_Mass_Rebuild
 
