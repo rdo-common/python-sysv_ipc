@@ -3,7 +3,7 @@
 
 Name:           python-%{oname}
 Version:        0.4.2
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        System V IPC for Python - Semaphores, Shared Memory and Message Queues
 Group:          Development/Libraries
 License:        GPLv3+
@@ -34,27 +34,26 @@ directory demo2) shows how to use message queues.
 
 
 %install
-rm -rf $RPM_BUILD_ROOT
 %{__python} setup.py install --skip-build --root $RPM_BUILD_ROOT
 %{__python} setup.py install -O1 --skip-build --root $RPM_BUILD_ROOT
-mkdir -p $RPM_BUILD_ROOT%{_docdir}/%{name}-examples-%{version}/demo{,2}
-install -m 644 demo/*  $RPM_BUILD_ROOT/%{_docdir}/%{name}-examples-%{version}/demo
-install -m 644 demo2/* $RPM_BUILD_ROOT/%{_docdir}/%{name}-examples-%{version}/demo2
+chmod -x demo*/*.{py,sh}
+#sed -i -e '/^#!\//, 1d'  demo/mk.sh 
 
-%clean
-rm -rf $RPM_BUILD_ROOT
+
 
 %files
-%defattr(-,root,root,-)
-%doc INSTALL LICENSE README ReadMe.html VERSION
+%doc LICENSE README ReadMe.html VERSION
 %{python_sitearch}/%{oname}.so
 %{python_sitearch}/%{oname}-%{version}-py2.?.egg-info
 
 %files examples
-%defattr(-,root,root,-)
-%{_docdir}/%{name}-examples-%{version}/
+%doc demo/ demo2/
 
 %changelog
+* Sat Oct 10 2015 Athmane Madjoudj <athmane@fedoraproject.org> 0.4.2-13
+- Use unversioned docdir  (RHBZ #994063)
+- Fix some packaging issues
+
 * Thu Jun 18 2015 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.4.2-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_23_Mass_Rebuild
 
