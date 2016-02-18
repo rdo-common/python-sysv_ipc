@@ -1,55 +1,80 @@
-%{!?python_sitearch: %global python_sitearch %(%{__python} -c "from distutils.sysconfig import get_python_lib; print get_python_lib(1)")}
-%define oname sysv_ipc
+%global srcname sysv_ipc
+%global sum System V IPC for Python - Semaphores, Shared Memory and Message Queues
+%global desc The sysv_ipc module which gives Python access to System V inter-process\
+semaphores, shared memory and message queues on systems that support them.
 
-Name:           python-%{oname}
-Version:        0.4.2
-Release:        14%{?dist}
-Summary:        System V IPC for Python - Semaphores, Shared Memory and Message Queues
-Group:          Development/Libraries
+Name:           python-%{srcname}
+Version:        0.7.0
+Release:        1%{?dist}
+Summary:        %{sum}
 License:        GPLv3+
-URL:            http://semanchuk.com/philip/%{oname}/
-Source0:        http://semanchuk.com/philip/%{oname}/%{oname}-%{version}.tar.gz
-BuildRoot:      %(mktemp -ud %{_tmppath}/%{name}-%{version}-%{release}-XXXXXX)
-BuildRequires:  python-devel
+URL:            http://semanchuk.com/philip/%{srcname}/
+Source0:        https://pypi.python.org/packages/source/s/%{srcname}/%{srcname}-%{version}.tar.gz
+BuildRequires:  python2-devel python3-devel
 
 %description
-The sysv_ipc module which gives Python access to System V inter-process
-semaphores, shared memory and message queues on systems that support them.
+%{desc}
 
 %package examples
 Summary:    Examples for Python sysv_ipc module
-Group:      Development/Libraries
 Requires:   %{name} = %{version}-%{release}
 
 %description examples
-This module comes with two demonstration apps. The first (in the directory
-demo) shows how to use shared memory and semaphores. The second (in the
-directory demo2) shows how to use message queues.
+This module comes with two demonstration apps. 
+
+%package -n python2-%{srcname}
+Summary:        %{sum}
+%{?python_provide:%python_provide python2-%{srcname}}
+
+%description -n python2-%{srcname}
+%{desc}
+
+
+%package -n python3-%{srcname}
+Summary:        %{sum}
+%{?python_provide:%python_provide python3-%{srcname}}
+
+%description -n python3-%{srcname}
+%{desc}
+
 
 %prep
 %setup -q -n sysv_ipc-%{version}
 
 %build
-%{__python} setup.py build
+%{__python2} setup.py build
+%{__python3} setup.py build
 
 
 %install
-%{__python} setup.py install --skip-build --root $RPM_BUILD_ROOT
-%{__python} setup.py install -O1 --skip-build --root $RPM_BUILD_ROOT
+%{__python2} setup.py install -O1 --skip-build --root $RPM_BUILD_ROOT
+%{__python3} setup.py install -O1 --skip-build --root $RPM_BUILD_ROOT
 chmod -x demo*/*.{py,sh}
 #sed -i -e '/^#!\//, 1d'  demo/mk.sh 
 
 
 
-%files
+%files -n python2-%{srcname}
+%license LICENSE 
 %doc LICENSE README ReadMe.html VERSION
-%{python_sitearch}/%{oname}.so
-%{python_sitearch}/%{oname}-%{version}-py2.?.egg-info
+%{python2_sitearch}/*
+%{python2_sitearch}/%{srcname}-%{version}-*.egg-info
+
+%files -n python3-%{srcname}
+%license LICENSE 
+%doc LICENSE README ReadMe.html VERSION
+%{python3_sitearch}/*
+%{python3_sitearch}/%{srcname}-%{version}-*.egg-info
+
 
 %files examples
 %doc demo/ demo2/
 
 %changelog
+* Thu Feb 18 2016 Athmane Madjoudj <athmane@fedoraproject.org> 0.7.0-1
+- Update to 0.7.0
+- Revamp the spec file
+
 * Thu Feb 04 2016 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.2-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_24_Mass_Rebuild
 
