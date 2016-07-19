@@ -5,7 +5,7 @@ semaphores, shared memory and message queues on systems that support them.
 
 Name:           python-%{srcname}
 Version:        0.7.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        %{sum}
 License:        GPLv3+
 URL:            http://semanchuk.com/philip/%{srcname}/
@@ -71,6 +71,9 @@ chmod -x demo*/*.{py,sh}
 %doc demo/ demo2/
 
 %changelog
+* Tue Jul 19 2016 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.7.0-2
+- https://fedoraproject.org/wiki/Changes/Automatic_Provides_for_Python_RPM_Packages
+
 * Thu Feb 18 2016 Athmane Madjoudj <athmane@fedoraproject.org> 0.7.0-1
 - Update to 0.7.0
 - Revamp the spec file
