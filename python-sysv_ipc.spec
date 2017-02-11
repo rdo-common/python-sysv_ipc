@@ -5,7 +5,7 @@ semaphores, shared memory and message queues on systems that support them.
 
 Name:           python-%{srcname}
 Version:        0.7.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        %{sum}
 License:        GPLv3+
 URL:            http://semanchuk.com/philip/%{srcname}/
@@ -71,6 +71,9 @@ chmod -x demo*/*.{py,sh}
 %doc demo/ demo2/
 
 %changelog
+* Sat Feb 11 2017 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_26_Mass_Rebuild
+
 * Mon Dec 19 2016 Miro Hrončok <mhroncok@redhat.com> - 0.7.0-3
 - Rebuild for Python 3.6
 
