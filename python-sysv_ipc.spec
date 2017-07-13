@@ -1,3 +1,6 @@
+%if 0%{?fedora}
+%global with_python3 1
+%endif
 %global srcname sysv_ipc
 %global sum System V IPC for Python - Semaphores, Shared Memory and Message Queues
 %global desc The sysv_ipc module which gives Python access to System V inter-process\
@@ -10,7 +13,6 @@ Summary:        %{sum}
 License:        GPLv3+
 URL:            http://semanchuk.com/philip/%{srcname}/
 Source0:        https://pypi.python.org/packages/source/s/%{srcname}/%{srcname}-%{version}.tar.gz
-BuildRequires:  python2-devel python3-devel
 
 %description
 %{desc}
@@ -25,17 +27,21 @@ This module comes with two demonstration apps.
 %package -n python2-%{srcname}
 Summary:        %{sum}
 %{?python_provide:%python_provide python2-%{srcname}}
+BuildRequires:  python2-devel
 
 %description -n python2-%{srcname}
 %{desc}
 
 
+%if 0%{?with_python3}
 %package -n python3-%{srcname}
 Summary:        %{sum}
 %{?python_provide:%python_provide python3-%{srcname}}
+BuildRequires:  python3-devel
 
 %description -n python3-%{srcname}
 %{desc}
+%endif
 
 
 %prep
@@ -43,12 +49,16 @@ Summary:        %{sum}
 
 %build
 %{__python2} setup.py build
+%if 0%{?with_python3}
 %{__python3} setup.py build
+%endif
 
 
 %install
 %{__python2} setup.py install -O1 --skip-build --root $RPM_BUILD_ROOT
+%if 0%{?with_python3}
 %{__python3} setup.py install -O1 --skip-build --root $RPM_BUILD_ROOT
+%endif
 chmod -x demo*/*.{py,sh}
 #sed -i -e '/^#!\//, 1d'  demo/mk.sh 
 
@@ -60,11 +70,13 @@ chmod -x demo*/*.{py,sh}
 %{python2_sitearch}/*
 %{python2_sitearch}/%{srcname}-%{version}-*.egg-info
 
+%if 0%{?with_python3}
 %files -n python3-%{srcname}
 %license LICENSE 
 %doc LICENSE README ReadMe.html VERSION
 %{python3_sitearch}/*
 %{python3_sitearch}/%{srcname}-%{version}-*.egg-info
+%endif
 
 
 %files examples
